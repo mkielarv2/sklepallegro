@@ -1,15 +1,15 @@
 package com.mkielar.sklepallegro
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.*
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupActionBarWithNavController
 
 class MainActivity : AppCompatActivity() {
-
     lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,8 +22,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean =
-        findNavController(R.id.nav_host_fragment).navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        findNavController(R.id.nav_host_fragment).navigateUp(appBarConfiguration) ||
+                super.onSupportNavigateUp()
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment)) || super.onOptionsItemSelected(item)
+        item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment)) ||
+                super.onOptionsItemSelected(item)
 }
