@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -36,6 +37,9 @@ android {
         jvmTarget = "1.8"
     }
 
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -58,4 +62,9 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    implementation "org.koin:koin-androidx-fragment:$koin_version"
 }

@@ -1,4 +1,4 @@
-package com.mkielar.sklepallegro
+package com.mkielar.sklepallegro.view
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -8,6 +8,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.mkielar.sklepallegro.R
 
 class MainActivity : AppCompatActivity() {
     lateinit var appBarConfiguration: AppBarConfiguration

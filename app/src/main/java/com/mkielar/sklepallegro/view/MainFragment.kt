@@ -1,4 +1,4 @@
-package com.mkielar.sklepallegro
+package com.mkielar.sklepallegro.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.mkielar.sklepallegro.R
+import com.mkielar.sklepallegro.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainFragment : Fragment() {
-    private val allegroApiClient by lazy {
-        AllegroApiClient.create()
-    }
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,34 +29,24 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recycler.layoutManager = LinearLayoutManager(context)
-        recycler.adapter = OfferAdapter()
+
+        val offerAdapter = OfferAdapter()
+        recycler.adapter = offerAdapter
 
         swipeRefresh.isRefreshing = true
-        val disposable = allegroApiClient.getData()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                (recycler.adapter as OfferAdapter).update(it)
-                swipeRefresh.isRefreshing = false
-            }, {
-                it.printStackTrace()
-                Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
-                swipeRefresh.isRefreshing = false
-            })
 
+        viewModel.offersLiveData.observe(viewLifecycleOwner, Observer {
+            offerAdapter.update(it)
+            swipeRefresh.isRefreshing = false
+        })
+
+        viewModel.errorLiveData.observe(viewLifecycleOwner, Observer {
+            Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+            swipeRefresh.isRefreshing = false
+        })
 
         swipeRefresh.setOnRefreshListener {
-            val disposable = allegroApiClient.getData()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    (recycler.adapter as OfferAdapter).update(it)
-                    swipeRefresh.isRefreshing = false
-                }, {
-                    Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
-                    swipeRefresh.isRefreshing = false
-                })
-
+            viewModel.fetch()
         }
     }
 }

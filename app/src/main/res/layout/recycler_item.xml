@@ -1,53 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="120dp">
+<layout>
 
-    <ImageView
-        android:id="@+id/thumbnail"
-        android:layout_width="120dp"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="asdasdsad"
-        android:singleLine="true"
-        android:ellipsize="marquee"
-        android:textSize="30sp"
-        android:layout_marginStart="6dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/thumbnail"
-        app:layout_constraintTop_toTopOf="parent" />
+        <variable
+            name="offer"
+            type="com.mkielar.sklepallegro.model.OfferItemDataBind" />
 
-    <TextView
-        android:id="@+id/priceLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="cena:"
-        android:textSize="20sp"
-        android:layout_marginStart="6dp"
-        app:layout_constraintBottom_toBottomOf="@+id/price"
-        app:layout_constraintStart_toEndOf="@+id/thumbnail"
-        android:layout_marginBottom="4dp"/>
+    </data>
 
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="300 PLN"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/priceLabel"
-        app:layout_constraintTop_toBottomOf="@+id/name"
-        android:layout_marginLeft="6dp"/>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:thumbnailUrl="@{offer.thumbnailUrl}" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="16dp"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="@{offer.name}"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/thumbnail"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/priceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginBottom="4dp"
+            android:text="cena:"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/price"
+            app:layout_constraintStart_toEndOf="@+id/thumbnail" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:text="@{offer.price.concat(@string/currency_separator).concat(offer.currency)}"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/priceLabel"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

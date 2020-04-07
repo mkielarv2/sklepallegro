@@ -1,4 +1,4 @@
-package com.mkielar.sklepallegro.dto
+package com.mkielar.sklepallegro.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

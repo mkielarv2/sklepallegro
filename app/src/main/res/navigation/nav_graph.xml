@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.mkielar.sklepallegro.MainFragment"
+        android:name="com.mkielar.sklepallegro.view.MainFragment"
         android:label="Sklep Allegro"
         tools:layout="@layout/fragment_main">
         <action
@@ -16,11 +16,11 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.mkielar.sklepallegro.DetailsFragment"
+        android:name="com.mkielar.sklepallegro.view.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
         <argument
-            android:name="Offer"
-            app:argType="com.mkielar.sklepallegro.dto.OfferDTO" />
+            android:name="offerDTO"
+            app:argType="com.mkielar.sklepallegro.model.OfferDTO" />
     </fragment>
 </navigation>

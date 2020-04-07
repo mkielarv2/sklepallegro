@@ -1,6 +1,6 @@
 package com.mkielar.sklepallegro
 
-import com.mkielar.sklepallegro.dto.OffersDTO
+import com.mkielar.sklepallegro.model.OffersDTO
 import io.reactivex.Flowable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
