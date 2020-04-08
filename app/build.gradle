@@ -22,9 +22,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "API_URL", "\"https://private-987cdf-allegromobileinterntest.apiary-mock.com/allegro/\"")
+            buildConfigField("String", "MIME_TEXT_HTML", "\"text/html\"")
         }
         debug {
             buildConfigField("String", "API_URL", "\"https://private-987cdf-allegromobileinterntest.apiary-mock.com/allegro/\"")
+            buildConfigField("String", "MIME_TEXT_HTML", "\"text/html\"")
         }
     }
 

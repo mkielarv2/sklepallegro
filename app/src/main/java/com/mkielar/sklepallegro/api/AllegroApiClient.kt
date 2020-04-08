@@ -1,5 +1,6 @@
-package com.mkielar.sklepallegro
+package com.mkielar.sklepallegro.api
 
+import com.mkielar.sklepallegro.BuildConfig
 import com.mkielar.sklepallegro.model.OffersDTO
 import io.reactivex.Flowable
 import retrofit2.Retrofit
@@ -14,7 +15,6 @@ interface AllegroApiClient {
 
     companion object {
         fun create(): AllegroApiClient {
-
             val retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(
                     RxJava2CallAdapterFactory.create()

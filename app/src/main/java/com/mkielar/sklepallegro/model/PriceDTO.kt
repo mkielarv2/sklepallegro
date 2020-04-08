@@ -7,4 +7,6 @@ import kotlinx.android.parcel.Parcelize
 data class PriceDTO(
     val amount: String,
     val currency: String
-) : Parcelable
+) : Parcelable {
+    override fun toString(): String = "$amount $currency"
+}
