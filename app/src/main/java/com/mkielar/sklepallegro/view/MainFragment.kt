@@ -11,6 +11,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mkielar.sklepallegro.R
+import com.mkielar.sklepallegro.ktx.setDivider
 import com.mkielar.sklepallegro.ktx.showToast
 import com.mkielar.sklepallegro.model.OfferDTO
 import com.mkielar.sklepallegro.viewmodel.MainViewModel
@@ -64,6 +65,7 @@ class MainFragment : Fragment() {
     private fun setupRecyclerView() {
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = offerAdapter
+        recycler.setDivider(R.drawable.recycler_item_divider)
     }
 
     private fun showRefreshing() {
