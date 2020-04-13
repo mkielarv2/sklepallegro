@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "714206706753",
+    "firebase_url": "https://sklep-allegro.firebaseio.com",
+    "project_id": "sklep-allegro",
+    "storage_bucket": "sklep-allegro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714206706753:android:7d2ab82ed64e30a90ddac0",
+        "android_client_info": {
+          "package_name": "com.mkielar.sklepallegro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714206706753-6tuoeuvb9930trtfvcilc4dnu6epv9bp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnYRbOd-7NuMZgYRSIC-m8k26iw6WrOv0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714206706753-6tuoeuvb9930trtfvcilc4dnu6epv9bp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
