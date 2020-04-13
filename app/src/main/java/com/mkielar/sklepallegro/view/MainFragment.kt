@@ -34,6 +34,7 @@ class MainFragment : Fragment() {
         listingAdapter.onClickListener = this::navigateToDetails
         setupRecyclerView()
 
+        fetchOffers()
         showRefreshing()
 
         viewModel.offersLiveData.observe(viewLifecycleOwner, Observer {
@@ -50,7 +51,7 @@ class MainFragment : Fragment() {
         })
 
         swipeRefresh.setOnRefreshListener {
-            reloadOffers()
+            fetchOffers()
         }
     }
 
@@ -78,17 +79,17 @@ class MainFragment : Fragment() {
         context?.showToast(getString(R.string.fetch_error_message))
     }
 
-    private fun reloadOffers() {
+    private fun fetchOffers() {
         viewModel.fetch()
     }
 
     override fun onStop() {
-        super.onStop()
         viewModel.clear()
+        super.onStop()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         viewModel.dispose()
+        super.onDestroy()
     }
 }

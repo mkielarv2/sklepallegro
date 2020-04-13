@@ -23,8 +23,6 @@ class ListingViewModel(private val allegroApiClient: AllegroApiClient) : ViewMod
     var priceTo: Double = 1000.0
 
     init {
-        fetch()
-
         offersLiveData.addSource(allOffersLiveData) {
             offersLiveData.value = filter(it)
         }
