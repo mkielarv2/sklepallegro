@@ -11,7 +11,10 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class ListingViewModel(private val allegroApiClient: AllegroApiClient) : ViewModel() {
+class ListingViewModel(
+    private val allegroApiClient: AllegroApiClient,
+    fetchOnInit: Boolean
+) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     private val allOffersLiveData: MutableLiveData<List<OfferDTO>> = MutableLiveData()
@@ -23,6 +26,10 @@ class ListingViewModel(private val allegroApiClient: AllegroApiClient) : ViewMod
     var priceTo: Double = 1000.0
 
     init {
+        if(fetchOnInit){
+            fetch()
+        }
+
         offersLiveData.addSource(allOffersLiveData) {
             offersLiveData.value = filter(it)
         }
@@ -43,7 +50,7 @@ class ListingViewModel(private val allegroApiClient: AllegroApiClient) : ViewMod
     }
 
     private fun filter(offers: List<OfferDTO>): List<OfferDTO> {
-        return offers.filter { it.price.amount.toDouble() in priceFrom..priceTo}
+        return offers.filter { it.price.amount.toDouble() in priceFrom..priceTo }
     }
 
     private fun applyFilter() {

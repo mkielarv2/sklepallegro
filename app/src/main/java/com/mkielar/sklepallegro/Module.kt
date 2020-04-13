@@ -10,6 +10,6 @@ object Module {
     val koin = module {
         single { ListingAdapter() }
         single { AllegroApiClient.create() }
-        viewModel { ListingViewModel(get()) }
+        viewModel { ListingViewModel(get(), true) }
     }
 }
