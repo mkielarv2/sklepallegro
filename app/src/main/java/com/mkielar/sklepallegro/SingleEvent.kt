@@ -9,4 +9,6 @@ class SingleEvent<T>(
 
     fun consume(): T? =
         if (isConsumed.compareAndSet(false, true)) value else null
+
+    fun peek(): T = value
 }

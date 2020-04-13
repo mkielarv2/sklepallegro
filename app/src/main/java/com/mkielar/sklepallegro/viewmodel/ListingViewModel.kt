@@ -6,12 +6,14 @@ import androidx.lifecycle.ViewModel
 import com.mkielar.sklepallegro.SingleEvent
 import com.mkielar.sklepallegro.api.AllegroApiClient
 import com.mkielar.sklepallegro.model.OfferDTO
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.mkielar.sklepallegro.schedulers.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class ListingViewModel(private val allegroApiClient: AllegroApiClient) : ViewModel() {
+class ListingViewModel(
+    private val allegroApiClient: AllegroApiClient,
+    private val schedulerProvider: SchedulerProvider
+) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     private val allOffersLiveData: MutableLiveData<List<OfferDTO>> = MutableLiveData()
@@ -32,8 +34,8 @@ class ListingViewModel(private val allegroApiClient: AllegroApiClient) : ViewMod
         compositeDisposable.add(
             allegroApiClient.getData()
                 .timeout(10, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(schedulers.io())
+//                .observeOn(schedulers.mainThread())
                 .subscribe({
                     allOffersLiveData.value = it.offers
                 }, {
@@ -43,7 +45,7 @@ class ListingViewModel(private val allegroApiClient: AllegroApiClient) : ViewMod
     }
 
     private fun filter(offers: List<OfferDTO>): List<OfferDTO> {
-        return offers.filter { it.price.amount.toDouble() in priceFrom..priceTo}
+        return offers.filter { it.price.amount.toDouble() in priceFrom..priceTo }
     }
 
     private fun applyFilter() {
