@@ -3,7 +3,7 @@ package com.mkielar.sklepallegro.viewmodel
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mkielar.sklepallegro.SingleEvent
+import com.mkielar.sklepallegro.util.SingleEvent
 import com.mkielar.sklepallegro.api.AllegroApiClient
 import com.mkielar.sklepallegro.model.OfferDTO
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -44,7 +44,8 @@ class ListingViewModel(
                 .subscribe({
                     allOffersLiveData.value = it.offers
                 }, {
-                    errorLiveData.value = SingleEvent(it)
+                    errorLiveData.value =
+                        SingleEvent(it)
                 })
         )
     }

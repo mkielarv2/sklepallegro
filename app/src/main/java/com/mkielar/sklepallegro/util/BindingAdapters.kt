@@ -1,4 +1,4 @@
-package com.mkielar.sklepallegro.databind
+package com.mkielar.sklepallegro.util
 
 import android.webkit.WebView
 import android.widget.ImageView
