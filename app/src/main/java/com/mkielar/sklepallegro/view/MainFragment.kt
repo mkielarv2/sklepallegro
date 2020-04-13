@@ -34,7 +34,6 @@ class MainFragment : Fragment() {
         listingAdapter.onClickListener = this::navigateToDetails
         setupRecyclerView()
 
-        fetchOffers()
         showRefreshing()
 
         viewModel.offersLiveData.observe(viewLifecycleOwner, Observer {

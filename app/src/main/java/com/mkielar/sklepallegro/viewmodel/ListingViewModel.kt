@@ -12,7 +12,8 @@ import java.util.concurrent.TimeUnit
 
 class ListingViewModel(
     private val allegroApiClient: AllegroApiClient,
-    private val schedulerProvider: SchedulerProvider
+    private val schedulerProvider: SchedulerProvider,
+    fetchOnInit: Boolean
 ) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -25,6 +26,10 @@ class ListingViewModel(
     var priceTo: Double = 1000.0
 
     init {
+        if(fetchOnInit) {
+            fetch()
+        }
+
         offersLiveData.addSource(allOffersLiveData) {
             offersLiveData.value = filter(it)
         }
@@ -34,8 +39,8 @@ class ListingViewModel(
         compositeDisposable.add(
             allegroApiClient.getData()
                 .timeout(10, TimeUnit.SECONDS)
-//                .subscribeOn(schedulers.io())
-//                .observeOn(schedulers.mainThread())
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
                 .subscribe({
                     allOffersLiveData.value = it.offers
                 }, {
@@ -48,7 +53,7 @@ class ListingViewModel(
         return offers.filter { it.price.amount.toDouble() in priceFrom..priceTo }
     }
 
-    private fun applyFilter() {
+    fun applyFilter() {
         allOffersLiveData.value?.also {
             offersLiveData.value = filter(it)
         }

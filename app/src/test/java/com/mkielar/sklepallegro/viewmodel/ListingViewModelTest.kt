@@ -11,14 +11,15 @@ import com.mkielar.sklepallegro.schedulers.SchedulerProvider
 import io.reactivex.Flowable
 import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
+import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
+import org.mockito.verification.VerificationMode
 
 
 class ListingViewModelTest {
@@ -38,9 +39,8 @@ class ListingViewModelTest {
         allegroApiClient = mock()
         listingViewModel = ListingViewModel(allegroApiClient, object : SchedulerProvider {
             override fun io(): Scheduler = Schedulers.trampoline()
-            override fun mainThread(): Scheduler = Schedulers.trampoline()
-            override fun computation(): Scheduler = Schedulers.trampoline()
-        })
+            override fun ui(): Scheduler = Schedulers.trampoline()
+        }, false)
 
         offerObserver = mock()
         errorObserver = mock()
@@ -61,7 +61,7 @@ class ListingViewModelTest {
         //given
         val data = OffersDTO(
             listOf(
-                createOfferWithId("1")
+                createOfferFrom("1")
             )
         )
 
@@ -91,16 +91,82 @@ class ListingViewModelTest {
         assertNull(captor.value.consume())
     }
 
-    private fun createOfferWithId(id: String): OfferDTO {
+    @Test
+    fun testDefaultPriceFilter() {
+        //given
+        val expected = createOfferFrom("2", priceDTO = PriceDTO("500.00", "PLN"))
+        val data = OffersDTO(
+            listOf(
+                createOfferFrom("1", priceDTO = PriceDTO("40.00", "PLN")),
+                expected,
+                createOfferFrom("3", priceDTO = PriceDTO("1200.00", "PLN"))
+            )
+        )
+
+        `when`(allegroApiClient.getData()).thenReturn(Flowable.just(data))
+
+        //when
+        listingViewModel.fetch()
+
+        //then
+        val captor = argumentCaptor<List<OfferDTO>>()
+        verify(offerObserver).onChanged(captor.capture())
+        assertEquals(1, captor.value.size)
+        assertEquals(expected, captor.value[0])
+    }
+
+    @Test
+    fun testCustomPriceFilter() {
+        //given
+        val expected = createOfferFrom("2", priceDTO = PriceDTO("15000.00", "PLN"))
+        val data = OffersDTO(
+            listOf(
+                createOfferFrom("1", priceDTO = PriceDTO("40.00", "PLN")),
+                expected,
+                createOfferFrom("3", priceDTO = PriceDTO("1200.00", "PLN")),
+                createOfferFrom("4", priceDTO = PriceDTO("9999.99", "PLN")),
+                createOfferFrom("5", priceDTO = PriceDTO("25000.00", "PLN"))
+            )
+        )
+
+        `when`(allegroApiClient.getData()).thenReturn(Flowable.just(data))
+
+        //when
+        listingViewModel.fetch()
+        listingViewModel.priceFrom = 10000.0
+        listingViewModel.priceTo = 20000.0
+        listingViewModel.applyFilter()
+
+        //then
+        val captor = argumentCaptor<List<OfferDTO>>()
+        verify(offerObserver, times(2)).onChanged(captor.capture())
+        val filtered = captor.allValues[1]
+        assertEquals(1, filtered.size)
+        assertEquals(expected, filtered[0])
+    }
+
+    @After
+    fun tearDown() {
+        listingViewModel.clear()
+        listingViewModel.dispose()
+    }
+
+    private fun createOfferFrom(
+        id: String,
+        name: String = "Offer",
+        thumbnailUrl: String = "https://example.com/",
+        priceDTO: PriceDTO = PriceDTO(
+            "100.00",
+            "PLN"
+        ),
+        description: String = "<h1>Offer</h1>"
+    ): OfferDTO {
         return OfferDTO(
             id,
-            "Offer",
-            "https://example.com/",
-            PriceDTO(
-                "100.00",
-                "PLN"
-            ),
-            "<h1>Offer</h1>"
+            name,
+            thumbnailUrl,
+            priceDTO,
+            description
         )
     }
 
