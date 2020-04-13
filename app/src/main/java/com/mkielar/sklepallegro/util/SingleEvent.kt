@@ -1,4 +1,4 @@
-package com.mkielar.sklepallegro
+package com.mkielar.sklepallegro.util
 
 import java.util.concurrent.atomic.AtomicBoolean
 
