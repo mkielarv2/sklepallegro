@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sklep Allegro</string>
+    <string name="fetch_error_message">Błąd, sprawdź połączenie z internetem</string>
+    <string name="price_label">Cena:</string>
+    <string name="thumbnail_content_description">Podgląd przedmiotu</string>
+    <string name="filter_action_title">Filtruj</string>
+</resources>

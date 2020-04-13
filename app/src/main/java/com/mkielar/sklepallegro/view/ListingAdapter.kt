@@ -1,41 +1,37 @@
 package com.mkielar.sklepallegro.view
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mkielar.sklepallegro.R
 import com.mkielar.sklepallegro.databinding.RecyclerItemBinding
-import com.mkielar.sklepallegro.model.OfferBindingHelper
 import com.mkielar.sklepallegro.model.OfferDTO
 
-class OfferAdapter : RecyclerView.Adapter<OfferViewHolder>() {
+class ListingAdapter : RecyclerView.Adapter<ListingViewHolder>() {
     lateinit var onClickListener: (OfferDTO) -> Unit
 
-    var offers: List<OfferDTO> = emptyList()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+    private var offers: List<OfferDTO> = emptyList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OfferViewHolder {
+    fun updateDataSet(offers: List<OfferDTO>) {
+        this.offers = offers
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListingViewHolder {
         val recyclerItemBinding: RecyclerItemBinding =
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
                 R.layout.recycler_item, parent, false
             )
-        return OfferViewHolder(recyclerItemBinding)
+        return ListingViewHolder(recyclerItemBinding)
     }
 
-    override fun onBindViewHolder(holder: OfferViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ListingViewHolder, position: Int) {
         val offer = offers[position]
-        holder.recyclerItemBinding.helper = OfferBindingHelper(offer, onClickListener)
+        holder.recyclerItemBinding.offerDTO = offer
+        holder.recyclerItemBinding.onClickListenerWrapper = OnClickListenerWrapper(onClickListener)
     }
 
-    override fun getItemCount(): Int {
-        return offers.size
-    }
-
-
+    override fun getItemCount(): Int = offers.size
 }

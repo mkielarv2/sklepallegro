@@ -16,12 +16,8 @@ interface AllegroApiClient {
     companion object {
         fun create(): AllegroApiClient {
             val retrofit = Retrofit.Builder()
-                .addCallAdapterFactory(
-                    RxJava2CallAdapterFactory.create()
-                )
-                .addConverterFactory(
-                    GsonConverterFactory.create()
-                )
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BuildConfig.API_URL)
                 .build()
 

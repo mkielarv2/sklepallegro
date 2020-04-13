@@ -5,8 +5,12 @@
     <data>
 
         <variable
-            name="helper"
-            type="com.mkielar.sklepallegro.model.OfferBindingHelper" />
+            name="offerDTO"
+            type="com.mkielar.sklepallegro.model.OfferDTO" />
+
+        <variable
+            name="onClickListenerWrapper"
+            type="com.mkielar.sklepallegro.view.OnClickListenerWrapper" />
 
     </data>
 
@@ -14,15 +18,15 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:onClick="@{() -> helper.onClickListener.invoke(helper.offerDTO)}">
+        android:onClick="@{() -> onClickListenerWrapper.onClickListener.invoke(offerDTO)}">
 
         <ImageView
-            android:layout_margin="6dp"
             android:id="@+id/thumbnail"
             android:layout_width="120dp"
             android:layout_height="match_parent"
+            android:layout_margin="6dp"
             android:contentDescription="@string/thumbnail_content_description"
-            app:imageUrl="@{helper.offerDTO.thumbnailUrl}"
+            app:imageUrl="@{offerDTO.thumbnailUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +37,7 @@
             android:layout_marginStart="6dp"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:text="@{helper.offerDTO.name}"
+            android:text="@{offerDTO.name}"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            android:text="@{helper.offerDTO.price.toString()}"
+            android:text="@{offerDTO.price.toString()}"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/priceLabel"

@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Sklep Allegro</string>
+    <string name="app_name">Allegro Shop</string>
     <string name="fetch_error_message">Error, check internet connection</string>
-    <string name="price_label">Cena:</string>
+    <string name="price_label">Price:</string>
     <string name="thumbnail_content_description">Thumbnail for item</string>
+    <string name="filter_action_title">Filter</string>
 </resources>
