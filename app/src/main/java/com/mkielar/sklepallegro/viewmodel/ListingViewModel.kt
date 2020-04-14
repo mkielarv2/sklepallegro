@@ -3,17 +3,17 @@ package com.mkielar.sklepallegro.viewmodel
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mkielar.sklepallegro.util.SingleEvent
 import com.mkielar.sklepallegro.api.AllegroApiClient
 import com.mkielar.sklepallegro.model.OfferDTO
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.mkielar.sklepallegro.schedulers.SchedulerProvider
+import com.mkielar.sklepallegro.util.SingleEvent
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class ListingViewModel(
     private val allegroApiClient: AllegroApiClient,
-    fetchOnInit: Boolean
+    private val schedulerProvider: SchedulerProvider,
+    fetchOnInit: Boolean = true
 ) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -26,7 +26,7 @@ class ListingViewModel(
     var priceTo: Double = 1000.0
 
     init {
-        if(fetchOnInit){
+        if(fetchOnInit) {
             fetch()
         }
 
@@ -39,13 +39,12 @@ class ListingViewModel(
         compositeDisposable.add(
             allegroApiClient.getData()
                 .timeout(10, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
                 .subscribe({
                     allOffersLiveData.value = it.offers
                 }, {
-                    errorLiveData.value =
-                        SingleEvent(it)
+                    errorLiveData.value = SingleEvent(it)
                 })
         )
     }
@@ -54,7 +53,7 @@ class ListingViewModel(
         return offers.filter { it.price.amount.toDouble() in priceFrom..priceTo }
     }
 
-    private fun applyFilter() {
+    fun applyFilter() {
         allOffersLiveData.value?.also {
             offersLiveData.value = filter(it)
         }
