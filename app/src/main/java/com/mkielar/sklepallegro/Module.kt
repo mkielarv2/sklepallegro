@@ -12,7 +12,7 @@ object Module {
     val koin = module {
         single { ListingAdapter() }
         single { AllegroApiClient.create() }
-        single { SchedulerProviderImpl() as SchedulerProvider}
-        viewModel { ListingViewModel(get(), get(), true) }
+        single { SchedulerProviderImpl() as SchedulerProvider }
+        viewModel { ListingViewModel(get(), get()) }
     }
 }

@@ -2,7 +2,7 @@ package com.mkielar.sklepallegro.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.mkielar.sklepallegro.SingleEvent
+import com.mkielar.sklepallegro.util.SingleEvent
 import com.mkielar.sklepallegro.api.AllegroApiClient
 import com.mkielar.sklepallegro.model.OfferDTO
 import com.mkielar.sklepallegro.model.OffersDTO

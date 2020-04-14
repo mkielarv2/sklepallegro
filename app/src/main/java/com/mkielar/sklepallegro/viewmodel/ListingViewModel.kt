@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 class ListingViewModel(
     private val allegroApiClient: AllegroApiClient,
     private val schedulerProvider: SchedulerProvider,
-    fetchOnInit: Boolean
+    fetchOnInit: Boolean = true
 ) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
