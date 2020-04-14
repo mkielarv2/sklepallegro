@@ -26,7 +26,7 @@ class ListingViewModel(
     var priceTo: Double = 1000.0
 
     init {
-        if(fetchOnInit) {
+        if (fetchOnInit) {
             fetch()
         }
 

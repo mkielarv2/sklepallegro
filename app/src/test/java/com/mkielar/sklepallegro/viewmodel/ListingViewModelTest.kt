@@ -2,12 +2,12 @@ package com.mkielar.sklepallegro.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.mkielar.sklepallegro.util.SingleEvent
 import com.mkielar.sklepallegro.api.AllegroApiClient
 import com.mkielar.sklepallegro.model.OfferDTO
 import com.mkielar.sklepallegro.model.OffersDTO
 import com.mkielar.sklepallegro.model.PriceDTO
 import com.mkielar.sklepallegro.schedulers.SchedulerProvider
+import com.mkielar.sklepallegro.util.SingleEvent
 import io.reactivex.Flowable
 import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
@@ -19,7 +19,6 @@ import org.junit.Test
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito
 import org.mockito.Mockito.*
-import org.mockito.verification.VerificationMode
 
 
 class ListingViewModelTest {

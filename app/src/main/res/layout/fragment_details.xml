@@ -2,6 +2,7 @@
 <layout>
 
     <data>
+
         <variable
             name="offerDTO"
             type="com.mkielar.sklepallegro.model.OfferDTO" />
@@ -24,10 +25,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:contentDescription="@string/thumbnail_content_description"
+                app:imageUrl="@{offerDTO.thumbnailUrl}"
                 app:layout_constraintEnd_toEndOf="@+id/webView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:imageUrl="@{offerDTO.thumbnailUrl}"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <View
                 android:id="@+id/separator"
@@ -67,7 +68,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/price"
-                app:loadData="@{offerDTO.description}"/>
+                app:loadData="@{offerDTO.description}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
