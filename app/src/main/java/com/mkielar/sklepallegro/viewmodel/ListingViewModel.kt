@@ -31,7 +31,8 @@ class ListingViewModel(
         }
 
         offersLiveData.addSource(allOffersLiveData) {
-            offersLiveData.value = filter(it)
+            offersLiveData.value =
+                filter(it).sortedBy { offerDTO -> offerDTO.price.amount.toDouble() }
         }
     }
 
