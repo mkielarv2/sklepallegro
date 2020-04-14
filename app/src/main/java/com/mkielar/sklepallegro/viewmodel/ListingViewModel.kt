@@ -38,7 +38,7 @@ class ListingViewModel(
     fun fetch() {
         compositeDisposable.add(
             allegroApiClient.getData()
-                .timeout(10, TimeUnit.SECONDS)
+                .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe({

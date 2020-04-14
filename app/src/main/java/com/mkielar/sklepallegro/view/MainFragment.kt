@@ -9,9 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mkielar.sklepallegro.R
+import com.mkielar.sklepallegro.ktx.navigateSafe
 import com.mkielar.sklepallegro.ktx.setDivider
 import com.mkielar.sklepallegro.ktx.showToast
 import com.mkielar.sklepallegro.model.OfferDTO
+import com.mkielar.sklepallegro.util.SingleEvent
 import com.mkielar.sklepallegro.viewmodel.ListingViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.ext.android.inject
@@ -57,7 +59,8 @@ class MainFragment : Fragment() {
     }
 
     private fun navigateToDetails(it: OfferDTO) {
-        findNavController().navigate(
+        findNavController().navigateSafe(
+            R.id.mainFragment,
             MainFragmentDirections.actionMainFragmentToDetailsFragment(it)
         )
     }
