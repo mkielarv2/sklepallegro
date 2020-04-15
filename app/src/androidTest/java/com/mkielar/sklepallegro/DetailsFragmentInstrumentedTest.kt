@@ -28,7 +28,7 @@ class DetailsFragmentInstrumentedTest {
         )
         Thread.sleep(1000)
         onView(withId(R.id.price)).check(matches(isDisplayed()))
-            .check(matches(withText("255.00 PLN")))
+            .check(matches(withText("53.00 PLN")))
         onView(withId(R.id.thumbnail)).check(matches(isDisplayed()))
         onView(withId(R.id.webView)).check(matches(isDisplayed()))
     }
